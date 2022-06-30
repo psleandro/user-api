@@ -22,12 +22,18 @@ export class User {
   )
   email: string;
 
+  @Expose({
+    name: 'senha',
+  })
   @Exclude({
     toPlainOnly: true,
   })
   @IsNotEmpty({ message: 'password field is mandatory' })
   password: string;
 
+  @Expose({
+    name: 'nomeCompleto',
+  })
   @IsNotEmpty({
     message: 'fullname field is mandatory',
   })
