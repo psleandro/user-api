@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { User } from './user.entity';
 
 @Injectable()
@@ -16,6 +16,15 @@ export class UserService {
   }
 
   public getUserByName(name: string): User {
-    return this.users.find((u) => u.username === name);
+    const user = this.users.find((u) => u.username === name);
+
+    if (!user) {
+      throw new NotFoundException({
+        statusCode: HttpStatus.NOT_FOUND,
+        message: 'User not found.',
+      });
+    }
+
+    return user;
   }
 }
